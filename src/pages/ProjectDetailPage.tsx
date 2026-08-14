@@ -26,6 +26,19 @@ function MediaBlock({ media }: { media: ProjectMedia }) {
     );
   }
 
+  if (media.type === "video") {
+    return (
+      <figure className="overflow-hidden rounded-lg border border-[var(--color-border)]">
+        <video src={media.src} poster={media.poster} controls preload="metadata" className="w-full" />
+        {media.caption && (
+          <figcaption className="border-t border-[var(--color-border)] bg-[var(--color-bg-raised)] px-4 py-2 font-mono text-xs text-[var(--color-text-faint)]">
+            {media.caption}
+          </figcaption>
+        )}
+      </figure>
+    );
+  }
+
   return (
     <div className="flex aspect-video flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-[var(--color-border)] bg-[var(--color-bg-raised)] text-[var(--color-text-faint)]">
       <PlaceholderIcon label={media.placeholderLabel} />

@@ -1,6 +1,7 @@
 export interface ProjectMedia {
-  type: "image" | "placeholder";
+  type: "image" | "video" | "placeholder";
   src?: string;
+  poster?: string;
   caption?: string;
   placeholderLabel?: string;
 }
@@ -29,7 +30,13 @@ export const projects: Project[] = [
     stack: ["Python", "DuckDB", "Polars", "Plotly", "Jupyter", "FastAPI", "Docker", "Telegram Bot API"],
     github: null,
     private: true,
-    media: [{ type: "placeholder", placeholderLabel: "Demo video coming soon" }],
+    media: [
+      {
+        type: "video",
+        src: "/videos/blochlab-dashboard-tour.webm",
+        caption: "Dashboard tour",
+      },
+    ],
   },
   {
     slug: "bilt-transactions-connector",
