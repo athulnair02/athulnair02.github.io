@@ -1,6 +1,8 @@
 export interface ProjectMedia {
   type: "image" | "video" | "placeholder";
   src?: string;
+  /** Video sources in order of preference; the browser plays the first it supports. */
+  sources?: { src: string; type: string }[];
   poster?: string;
   caption?: string;
   placeholderLabel?: string;
@@ -43,7 +45,11 @@ export const projects: Project[] = [
     media: [
       {
         type: "video",
-        src: "/videos/blochlab-dashboard-tour.webm",
+        sources: [
+          { src: "/videos/blochlab-dashboard-tour.webm", type: "video/webm" },
+          { src: "/videos/blochlab-dashboard-tour.mp4", type: "video/mp4" },
+        ],
+        poster: "/videos/blochlab-dashboard-tour-poster.jpg",
         caption: "Dashboard tour",
       },
     ],

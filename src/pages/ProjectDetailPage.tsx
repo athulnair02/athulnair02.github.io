@@ -29,7 +29,18 @@ function MediaBlock({ media }: { media: ProjectMedia }) {
   if (media.type === "video") {
     return (
       <figure className="overflow-hidden rounded-lg border border-[var(--color-border)]">
-        <video src={media.src} poster={media.poster} controls preload="metadata" className="w-full" />
+        <video
+          src={media.sources ? undefined : media.src}
+          poster={media.poster}
+          controls
+          playsInline
+          preload={media.poster ? "none" : "metadata"}
+          className="aspect-[1440/900] w-full"
+        >
+          {media.sources?.map((source) => (
+            <source key={source.src} src={source.src} type={source.type} />
+          ))}
+        </video>
         {media.caption && (
           <figcaption className="border-t border-[var(--color-border)] bg-[var(--color-bg-raised)] px-4 py-2 font-mono text-xs text-[var(--color-text-faint)]">
             {media.caption}
