@@ -12,6 +12,7 @@ export interface Project {
   tagline: string;
   goal: string;
   whyMade: string;
+  highlights?: string[];
   stack: string[];
   github: string | null;
   private?: boolean;
@@ -24,10 +25,19 @@ export const projects: Project[] = [
     name: "BlochLab",
     tagline: "Personal research & trading system for prediction markets",
     goal:
-      "BlochLab is a personal-use research and trading platform for Kalshi prediction markets, built around five layers: a data ingestion layer that polls market APIs and normalizes history into Parquet queryable via DuckDB; a research layer using Polars, DuckDB, and Plotly in Jupyter for single-market and full-series hypothesis testing; a series-level analytics layer that sweeps parameters across an entire market series to surface threshold win-rate curves, retracement distributions, and regime clusters; a simulation layer that backtests strategies with fee and slippage modeling and reports PnL, Sharpe, and drawdown; and a live layer that monitors markets in real time, supports paper trading, and runs automated execution — with a multi-instance monitoring dashboard, inbound Telegram bot control and reporting, configurable stop-loss modes, and portfolio drawdown halts. Everything runs through a shared strategy definition, so an idea can move from a Jupyter notebook to a live, risk-managed bot without being rewritten at each stage.",
+      "BlochLab is my research and trading platform for Kalshi prediction markets. It covers the whole loop: collecting market data, researching ideas, backtesting them, and running them as automated bots with real money. Every stage uses the same strategy definition, so an idea can go from a notebook to a live, risk-managed bot without being rewritten.",
     whyMade:
-      "I wanted a way to go from a raw market-data question to a tested, deployable trading hypothesis quickly — explicitly not a SaaS product or multi-user platform, just fast experimentation and iteration for my own use. The five-layer split exists so each stage of that loop (data, research, analytics, simulation, live execution) can be worked on independently without redoing the others.",
-    stack: ["Python", "DuckDB", "Polars", "Plotly", "Jupyter", "FastAPI", "Docker", "Telegram Bot API"],
+      "I wanted to go from a question about market data to a tested, live strategy as fast as possible. It started as a personal tool, but it now runs real-money bots in the cloud around the clock, so it has to be built and tested like production software.",
+    highlights: [
+      "Live trading bots that watch markets in real time, place orders automatically, and protect each position with configurable stop-losses and portfolio-wide drawdown limits.",
+      "A web dashboard for running many bots at once: start, stop and switch between paper and live trading, compare bots side by side, and replay any market to see exactly when and why each trade happened.",
+      "A funds and portfolio view that splits money across Kalshi subaccounts, tracks profit, volume and return on capital, and checks its own numbers against Kalshi's records.",
+      "A backtesting engine with fee and slippage modeling, reconciled against the research notebooks down to the cent so a backtest result can be trusted.",
+      "Research held to a high bar: ideas are tested on data they weren't tuned on, and changes that only look good by chance are rejected. One result, an entry filter based on how far price is from the strike, cut drawdowns on every coin tested.",
+      "Telegram bot for controlling the bots and getting reports from anywhere, plus a read-only access level for sharing the dashboard without exposing strategy details.",
+      "Latency work: measured more than 100,000 live orders to find where time was actually being lost, including a hidden delay from idle network connections. The data showed faster orders only pay off with a faster price feed, which shaped the plan to move the bots next to Kalshi's servers in AWS.",
+    ],
+    stack: ["Python", "DuckDB", "Polars", "Jupyter", "FastAPI", "React", "TypeScript", "WebSockets", "Docker", "Telegram Bot API"],
     github: null,
     private: true,
     media: [

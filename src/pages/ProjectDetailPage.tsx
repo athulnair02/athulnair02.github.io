@@ -98,6 +98,20 @@ export function ProjectDetailPage() {
         <p className="text-base leading-relaxed text-[var(--color-text-dim)]">{project.whyMade}</p>
       </motion.div>
 
+      {project.highlights && project.highlights.length > 0 && (
+        <motion.div variants={fadeUp} className="mt-8">
+          <p className="mb-2 font-mono text-sm text-[var(--color-text-faint)]">Highlights</p>
+          <ul className="flex flex-col gap-3">
+            {project.highlights.map((item) => (
+              <li key={item} className="flex gap-3 text-base leading-relaxed text-[var(--color-text-dim)]">
+                <span className="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      )}
+
       <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-2">
         {project.stack.map((tech) => (
           <span
